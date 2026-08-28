@@ -134,3 +134,9 @@ Facts are [CC BY 4.0](DATA-LICENSE.md). Documentation and metadata are [MIT](LIC
 ---
 
 <p align="center">Know a program that isn't here yet? <a href="CONTRIBUTING.md">Add it.</a></p>
+
+## DACH Signal fork note
+
+This public fork is also used by DACH Signal for verifiable research and bounty contributions.
+
+[![RustChain bounty contributor](https://img.shields.io/badge/RustChain-bounty%20contributor-orange)](https://rustchain.org)
