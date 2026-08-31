@@ -4,7 +4,6 @@ set -Eeuo pipefail
 ROOT="$HOME/kids_music_wan_benchmark"
 EVIDENCE="$ROOT/benchmark_evidence"
 REPO="$ROOT/Wan2.2"
-VENV="$ROOT/.venv"
 MODEL_DIR="$ROOT/Wan2.2-TI2V-5B"
 mkdir -p "$EVIDENCE" "$ROOT/tests" "$ROOT/outputs" "$ROOT/uploads"
 
@@ -19,6 +18,8 @@ trap fail ERR
   echo "timestamp=$(date -Is)"
   echo "pwd=$(pwd)"
   echo "python=$(python3 --version 2>&1 || true)"
+  echo "python_exe=$(python3 -c 'import sys; print(sys.executable)' 2>/dev/null || true)"
+  echo "conda_env=${CONDA_DEFAULT_ENV:-unknown}"
   echo "git=$(git --version 2>&1 || true)"
   echo "curl=$(curl --version 2>/dev/null | head -n1 || true)"
   echo "disk:"; df -h "$HOME" || true
@@ -33,13 +34,10 @@ except Exception as exc:
 PY
 } > "$EVIDENCE/environment.txt" 2>&1
 
-rm -f "$ROOT/benchmark_wrapper.py" "$ROOT/server.py"
-rm -f "$ROOT/tests/test_benchmark.py"
+rm -f "$ROOT/benchmark_wrapper.py" "$ROOT/server.py" "$ROOT/tests/test_benchmark.py"
 
-python3 -m venv "$VENV"
-source "$VENV/bin/activate"
-python -m pip install -q --upgrade pip
-python -m pip install -q pytest fastapi uvicorn pydantic huggingface_hub python-multipart
+# Lightning Studios allow one managed conda environment. Reuse it; never create venv/conda envs.
+python3 -m pip install -q pytest fastapi uvicorn pydantic huggingface_hub python-multipart
 
 cat > "$ROOT/tests/test_benchmark.py" <<'PY'
 import pytest
@@ -80,7 +78,7 @@ PY
 
 cd "$ROOT"
 set +e
-PYTHONPATH="$ROOT" pytest -q tests/test_benchmark.py > "$EVIDENCE/red_tests.txt" 2>&1
+PYTHONPATH="$ROOT" python3 -m pytest -q tests/test_benchmark.py > "$EVIDENCE/red_tests.txt" 2>&1
 RED_RC=$?
 set -e
 if [[ "$RED_RC" -eq 0 ]]; then
@@ -175,15 +173,15 @@ async def generate_video(image: UploadFile = File(...), prompt: str = Form(...))
     return {'status': 'generation_invoked', 'image': str(target), 'resolution': '1280x704', 'concurrency': 1}
 PY
 
-PYTHONPATH="$ROOT" pytest -q tests/test_benchmark.py | tee "$EVIDENCE/tests.txt"
-python -m py_compile "$ROOT/benchmark_wrapper.py" "$ROOT/server.py"
+PYTHONPATH="$ROOT" python3 -m pytest -q tests/test_benchmark.py | tee "$EVIDENCE/tests.txt"
+python3 -m py_compile "$ROOT/benchmark_wrapper.py" "$ROOT/server.py"
 
 cp "$REPO/requirements.txt" "$EVIDENCE/wan_requirements.txt"
 
 FREE_GB="$(df -Pk "$HOME" | awk 'NR==2 {printf "%d", $4/1024/1024}')"
 WEIGHTS_STATUS='NEEDS_GPU_STAGE'
 if [[ "$FREE_GB" -ge 45 ]]; then
-  python - <<PY
+  python3 - <<PY
 from huggingface_hub import snapshot_download
 snapshot_download(repo_id='Wan-AI/Wan2.2-TI2V-5B', local_dir=r'$MODEL_DIR')
 PY
@@ -202,6 +200,7 @@ target_fps: 24
 weights: $WEIGHTS_STATUS
 disk_free_gb_at_check: $FREE_GB
 cpu_tests: PASS
+python_environment: LIGHTNING_DEFAULT_CONDA_REUSED_NO_EXTRA_ENV_CREATED
 full_wan_runtime_install: DEFERRED_TO_GPU_STAGE_BECAUSE_FLASH_ATTN_IS_CUDA_SENSITIVE
 cash_spend_eur: 0
 paid_api_used: false
