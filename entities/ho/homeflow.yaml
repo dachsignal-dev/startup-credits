@@ -10,7 +10,8 @@ entity:
       valid_from: 2026-08-28T00:00:00.000Z
   category: marketing
 profile:
-  description: Homeflow provides websites, online valuation lead generation, and lead-management software for estate agencies.
+  summary: Homeflow provides websites, online valuation tools, and lead management software for UK estate agencies on one platform.
+  description: Homeflow provides estate agency websites, online valuation lead generation, and lead management software, used by agencies covering over 2,500 UK offices.
   links:
     site: https://www.homeflow.co.uk
 sources:
@@ -21,8 +22,8 @@ offers:
   - offer_id: off_01m14fnzdck21zvzf5q3w5bajb
     offer_slug: startup-estate-agency-monthly-fee-discount
     offer_slug_aliases: []
-    title: 50% off monthly fees for startup estate agencies
-    summary: Startup estate agencies receive 50% off Homeflow monthly fees for 12 months, with no obligation after the discounted period.
+    title: 50% off Homeflow monthly fees for startup estate agencies
+    summary: Startup estate agencies get 50% off Homeflow monthly fees for 12 months, 50% off a template website build or a free template, and a free valuation tool and lead management software.
     lifecycle:
       status: active
       effective_from: 2026-08-28T00:00:00.000Z
@@ -30,7 +31,7 @@ offers:
       benefits:
         - applies_to: Homeflow monthly fees
           benefit_id: ben_01
-          description: 50% discount on monthly fees for 12 months
+          description: 50% discount on monthly fees for the first 12 months, with no obligation after 12 months.
           duration:
             kind: exact
             value: P12M
@@ -38,21 +39,31 @@ offers:
           percentage:
             basis_points: 5000
             kind: exact
+        - applies_to: Template website build fee
+          benefit_id: ben_02
+          description: 50% discount on the template website build fee, or the option to use a free template.
+          kind: discount
+          percentage:
+            basis_points: 5000
+            kind: exact
+        - benefit_id: ben_03
+          description: A free online valuation tool and free lead management software.
+          kind: other
       consideration:
-        kind: unknown
-        description: The startup page does not publish the underlying monthly fee amount.
+        kind: variable
+        description: The agency pays half the standard price for its first 12 months, with no obligation to continue after that.
     eligibility:
       rule:
         kind: manual
         criterion_id: cri_01
         reason: not-machine-evaluable
-        statement: Offer is for startup estate agencies.
+        statement: The applicant is a startup estate agency setting up or launching a new agency.
     roles:
       terms_authority_entity_id: ent_01m14fnzdcg7xn3qryebphbtqn
       access_operator_entity_id: ent_01m14fnzdcg7xn3qryebphbtqn
     access:
       availability: public
-      method: contact
+      method: form
       url: https://www.homeflow.co.uk/startup-estate-agencies
     source_ids:
       - src_91364e5867536766574b87e18132d94f68cd43f721459989a834ea7d25228a4d
