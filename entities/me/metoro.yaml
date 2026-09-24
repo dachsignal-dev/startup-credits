@@ -10,6 +10,7 @@ entity:
       valid_from: 2026-08-29T14:55:33.412Z
   category: observability
 profile:
+  summary: Metoro is a Kubernetes observability platform that collects APM traces, logs, events, and infrastructure metrics with eBPF and adds AI incident response.
   description: Metoro provides Kubernetes observability and AI SRE tooling for monitoring, incident investigation, deployment verification, and root-cause analysis.
   links:
     site: https://metoro.io
@@ -29,8 +30,8 @@ offers:
     program_id: prg_01m170986p9xjwvrctp8f9v06q
     offer_slug: three-months-free
     offer_slug_aliases: []
-    title: Three months free for qualifying startups
-    summary: Qualifying companies less than three years old can use Metoro at no cost for three months, then move to discounted startup pricing.
+    title: Three months of Metoro free for qualifying startups
+    summary: Qualifying companies less than 3 years old start with three months of Metoro at no cost, then move to discounted startup pricing, with a dedicated Slack support channel.
     lifecycle:
       status: active
       effective_from: 2026-08-29T14:55:33.412Z
@@ -38,13 +39,17 @@ offers:
       benefits:
         - benefit_id: ben_01
           description: Three months of Metoro at no cost.
+          kind: free-service
+          service: Metoro Kubernetes observability
           duration:
             kind: exact
             value: P3M
-          kind: discount
-          percentage:
-            basis_points: 10000
-            kind: exact
+        - benefit_id: ben_02
+          description: Discounted startup pricing after the free period.
+          kind: other
+        - benefit_id: ben_03
+          description: A dedicated Slack channel for feature requests, onboarding questions, and ongoing support.
+          kind: other
       consideration:
         kind: none
     eligibility:
@@ -61,14 +66,15 @@ offers:
               value: 36
           - criterion_id: cri_02
             kind: manual
-            statement: The company must qualify for Metoro's startup programme.
-            reason: not-machine-evaluable
+            reason: vendor-discretion
+            statement: The company qualifies after applying to the Metoro for Startups programme.
     roles:
       terms_authority_entity_id: ent_01m170986pttjjy59cr8sa20hp
       access_operator_entity_id: ent_01m170986pttjjy59cr8sa20hp
     access:
       availability: public
-      method: form
+      instructions: Use the Apply to the startup programme email link on the Metoro pricing page, which opens an application email to Metoro support with company, Kubernetes environment, and timeline details.
+      method: contact
       url: https://metoro.io/pricing
     terms_url: https://metoro.io/pricing
     source_ids:
