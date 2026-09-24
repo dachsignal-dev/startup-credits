@@ -23,15 +23,14 @@ offers:
     offer_slug: startup-estate-agency-monthly-fee-discount
     offer_slug_aliases: []
     title: 50% off Homeflow monthly fees for startup estate agencies
-    summary: Startup estate agencies get 50% off Homeflow monthly fees for 12 months, 50% off a template website build or a free template, and a free valuation tool and lead management software.
+    summary: Startup estate agencies get a 50% discount on Homeflow monthly fees for 12 months, with no obligation after 12 months.
     lifecycle:
       status: active
       effective_from: 2026-08-28T00:00:00.000Z
     economics:
       benefits:
-        - applies_to: Homeflow monthly fees
-          benefit_id: ben_01
-          description: 50% discount on monthly fees for the first 12 months, with no obligation after 12 months.
+        - benefit_id: ben_01
+          description: 50% discount on monthly fees for 12 months.
           duration:
             kind: exact
             value: P12M
@@ -39,19 +38,9 @@ offers:
           percentage:
             basis_points: 5000
             kind: exact
-        - applies_to: Template website build fee
-          benefit_id: ben_02
-          description: 50% discount on the template website build fee, or the option to use a free template.
-          kind: discount
-          percentage:
-            basis_points: 5000
-            kind: exact
-        - benefit_id: ben_03
-          description: A free online valuation tool and free lead management software.
-          kind: other
       consideration:
         kind: variable
-        description: The agency pays half the standard price for its first 12 months, with no obligation to continue after that.
+        description: The agency receives a 50% discount on monthly fees for 12 months.
     eligibility:
       rule:
         kind: manual
